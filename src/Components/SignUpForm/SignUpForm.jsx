@@ -1,35 +1,26 @@
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const initialValues = { name: "", email: "", password: "" };
 
 const onSubmit = () => {};
 
-const validate = (values) => {
-  const errors = {};
-
-  if (!values.name) {
-    errors.name = "Name is Required!";
-  }
-
-  if (!values.email) {
-    errors.email = "Email is Required!";
-  }
-
-  if (!values.password) {
-    errors.password = "Password is Required!";
-  }
-
-  console.log(errors);
-
-  return errors;
-};
+const validationSchema = Yup.object({
+  name: Yup.string().required("Name is required!"),
+  email: Yup.string()
+    .email("Email format is incorrect!")
+    .required("Email is required!"),
+  password: Yup.string().required("Password is required!"),
+});
 
 const SignUpForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validate,
+    validationSchema,
   });
+
+  console.log(formik.touched);
 
   return (
     <form
@@ -43,7 +34,11 @@ const SignUpForm = () => {
         name="name"
         value={formik.values.name}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
       />
+      {formik.errors.name && formik.touched.name && (
+        <div className="text-red-600">{formik.errors.name}</div>
+      )}
       <label htmlFor="email">Email</label>
       <input
         type="email"
@@ -51,7 +46,11 @@ const SignUpForm = () => {
         name="email"
         value={formik.values.email}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
       />
+      {formik.errors.email && formik.touched.email && (
+        <div className="text-red-600">{formik.errors.email}</div>
+      )}
       <label htmlFor="password">Password</label>
       <input
         type="password"
@@ -59,7 +58,11 @@ const SignUpForm = () => {
         name="password"
         value={formik.values.password}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
       />
+      {formik.errors.password && formik.touched.password && (
+        <div className="text-red-600">{formik.errors.password}</div>
+      )}
       <button type="submit" className="rounded bg-slate-400 mt-5 p-1">
         Sign Up!
       </button>
