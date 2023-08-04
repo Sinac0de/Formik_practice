@@ -1,16 +1,41 @@
 import { useFormik } from "formik";
 
+const initialValues = { name: "", email: "", password: "" };
+
+const onSubmit = () => {};
+
+const validate = (values) => {
+  const errors = {};
+
+  if (!values.name) {
+    errors.name = "Name is Required!";
+  }
+
+  if (!values.email) {
+    errors.email = "Email is Required!";
+  }
+
+  if (!values.password) {
+    errors.password = "Password is Required!";
+  }
+
+  console.log(errors);
+
+  return errors;
+};
+
 const SignUpForm = () => {
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
+    initialValues,
+    onSubmit,
+    validate,
   });
 
   return (
-    <form className="flex flex-col w-[560px] m-auto mt-5">
+    <form
+      className="flex flex-col w-[560px] m-auto mt-5"
+      onSubmit={formik.onSubmit}
+    >
       <label htmlFor="name">Name</label>
       <input
         type="text"
@@ -19,16 +44,14 @@ const SignUpForm = () => {
         value={formik.values.name}
         onChange={formik.handleChange}
       />
-      <label
-        htmlFor="email"
+      <label htmlFor="email">Email</label>
+      <input
+        type="email"
         id="email"
         name="email"
         value={formik.values.email}
         onChange={formik.handleChange}
-      >
-        Email
-      </label>
-      <input type="email" />
+      />
       <label htmlFor="password">Password</label>
       <input
         type="password"
