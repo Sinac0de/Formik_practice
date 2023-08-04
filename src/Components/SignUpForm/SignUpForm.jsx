@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useState } from "react";
 import * as Yup from "yup";
 
 const initialValues = {
@@ -37,8 +38,10 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = () => {
+  const [formValues, setFormValues] = useState({});
+
   const formik = useFormik({
-    initialValues,
+    initialValues: formValues || initialValues,
     onSubmit,
     validationSchema,
     validateOnMount: true,
@@ -140,7 +143,17 @@ const SignUpForm = () => {
             onChange={formik.handleChange}
           />
         </div>
+        {formik.errors.gender && formik.touched.gender && (
+          <div className="text-red-600">{formik.errors.gender}</div>
+        )}
       </div>
+
+      <button
+        onClick={() => setFormValues()}
+        className="rounded bg-slate-400 mt-5 p-1 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Load Data
+      </button>
 
       <button
         type="submit"
