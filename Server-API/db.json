@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "sina",
+      "email": "sina@gmail.com",
+      "phoneNumber": "09033333333",
+      "password": "sina1234",
+      "confirmPassword": "sina1234"
+    }
+  ]
+}
