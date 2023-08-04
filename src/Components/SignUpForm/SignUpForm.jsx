@@ -7,6 +7,7 @@ const initialValues = {
   phoneNumber: "",
   password: "",
   confirmPassword: "",
+  gender: "",
 };
 
 const onSubmit = () => {};
@@ -32,6 +33,7 @@ const validationSchema = Yup.object({
   confirmPassword: Yup.string()
     .required()
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
+  gender: Yup.string().required("Gender is required!"),
 });
 
 const SignUpForm = () => {
@@ -112,6 +114,32 @@ const SignUpForm = () => {
         {formik.errors.confirmPassword && formik.touched.confirmPassword && (
           <div className="text-red-600">{formik.errors.confirmPassword}</div>
         )}
+      </div>
+
+      <div className="flex gap-[1em] my-1">
+        <div className="flex gap-[0.3em]">
+          <label htmlFor="0">Male</label>
+          <input
+            type="radio"
+            id="0"
+            value="0"
+            name="gender"
+            checked={formik.values.gender === "0"}
+            onChange={formik.handleChange}
+          />
+        </div>
+
+        <div className="flex gap-[0.3em]">
+          <label htmlFor="1">Female</label>
+          <input
+            type="radio"
+            id="1"
+            value="1"
+            name="gender"
+            checked={formik.values.gender === "1"}
+            onChange={formik.handleChange}
+          />
+        </div>
       </div>
 
       <button
