@@ -1,5 +1,6 @@
+import axios from "axios";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 const initialValues = {
@@ -38,7 +39,7 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = () => {
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState(null);
 
   const formik = useFormik({
     initialValues: formValues || initialValues,
@@ -47,7 +48,14 @@ const SignUpForm = () => {
     validateOnMount: true,
   });
 
-  console.log(formik.touched);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/users/1")
+      .then((res) => {
+        setFormValues(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <form
@@ -147,13 +155,6 @@ const SignUpForm = () => {
           <div className="text-red-600">{formik.errors.gender}</div>
         )}
       </div>
-
-      <button
-        onClick={() => setFormValues()}
-        className="rounded bg-slate-400 mt-5 p-1 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        Load Data
-      </button>
 
       <button
         type="submit"
