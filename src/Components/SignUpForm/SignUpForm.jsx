@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import InputField from "../common/Input";
+import InputField from "../common/InputField";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
+import RadioInput from "../common/RadioInput";
 
 const initialValues = {
   name: "",
@@ -38,6 +39,11 @@ const validationSchema = Yup.object({
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
   gender: Yup.string().required("Gender is required!"),
 });
+
+const radioOptions = [
+  { label: "Male", value: "0" },
+  { label: "Female", value: "1" },
+];
 
 const SignUpForm = () => {
   const [formValues, setFormValues] = useState(null);
@@ -79,34 +85,7 @@ const SignUpForm = () => {
         type="password"
       />
 
-      <div className="flex gap-[1em] my-1">
-        <div className="flex gap-[0.3em]">
-          <label htmlFor="0">Male</label>
-          <input
-            type="radio"
-            id="0"
-            value="0"
-            name="gender"
-            checked={formik.values.gender === "0"}
-            onChange={formik.handleChange}
-          />
-        </div>
-
-        <div className="flex gap-[0.3em]">
-          <label htmlFor="1">Female</label>
-          <input
-            type="radio"
-            id="1"
-            value="1"
-            name="gender"
-            checked={formik.values.gender === "1"}
-            onChange={formik.handleChange}
-          />
-        </div>
-        {formik.errors.gender && formik.touched.gender && (
-          <div className="text-red-600">{formik.errors.gender}</div>
-        )}
-      </div>
+      <RadioInput name="gender" formik={formik} radioOptions={radioOptions} />
 
       <button
         type="submit"
