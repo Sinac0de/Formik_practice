@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useFormik } from "formik";
+import InputField from "../common/Input";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
@@ -62,70 +63,21 @@ const SignUpForm = () => {
       className="flex flex-col w-[560px] m-auto mt-5"
       onSubmit={formik.onSubmit}
     >
-      <div className="flex flex-col gap-[0.2em] my-1">
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          {...formik.getFieldProps("name")}
-        />
-        {formik.errors.name && formik.touched.name && (
-          <div className="text-red-600">{formik.errors.name}</div>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-[0.2em] my-1">
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          {...formik.getFieldProps("email")}
-        />
-        {formik.errors.email && formik.touched.email && (
-          <div className="text-red-600">{formik.errors.email}</div>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-[0.2em] my-1">
-        <label htmlFor="phoneNumber">Phone Number</label>
-        <input
-          type="text"
-          id="phoneNumber"
-          name="phoneNumber"
-          {...formik.getFieldProps("phoneNumber")}
-        />
-        {formik.errors.phoneNumber && formik.touched.phoneNumber && (
-          <div className="text-red-600">{formik.errors.phoneNumber}</div>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-[0.2em] my-1">
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          {...formik.getFieldProps("password")}
-        />
-        {formik.errors.password && formik.touched.password && (
-          <div className="text-red-600">{formik.errors.password}</div>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-[0.2em] my-1">
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          {...formik.getFieldProps("confirmPassword")}
-        />
-        {formik.errors.confirmPassword && formik.touched.confirmPassword && (
-          <div className="text-red-600">{formik.errors.confirmPassword}</div>
-        )}
-      </div>
+      <InputField label="Name" formik={formik} name="name" />
+      <InputField label="Email" formik={formik} name="email" />
+      <InputField label="Phone Number" formik={formik} name="phoneNumber" />
+      <InputField
+        label="Password"
+        formik={formik}
+        name="password"
+        type="password"
+      />
+      <InputField
+        label="Confirm Password"
+        formik={formik}
+        name="confirmPassword"
+        type="password"
+      />
 
       <div className="flex gap-[1em] my-1">
         <div className="flex gap-[0.3em]">
