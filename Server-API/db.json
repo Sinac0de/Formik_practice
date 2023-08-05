@@ -8,7 +8,9 @@
       "password": "sina1234",
       "confirmPassword": "sina1234",
       "gender": "0",
-      "nationality": "US"
+      "nationality": "US",
+      "interests": ["react"],
+      "terms": false
     }
   ]
 }
