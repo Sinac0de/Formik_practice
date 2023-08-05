@@ -6,7 +6,8 @@
       "email": "sina@gmail.com",
       "phoneNumber": "09033333333",
       "password": "sina1234",
-      "confirmPassword": "sina1234"
+      "confirmPassword": "sina1234",
+      "gender": "0"
     }
   ]
 }
