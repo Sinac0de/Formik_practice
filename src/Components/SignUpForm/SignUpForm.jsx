@@ -15,11 +15,9 @@ const initialValues = {
   confirmPassword: "",
   gender: "",
   nationality: "",
-  interests: ["react"],
+  interests: [],
   terms: false,
 };
-
-const onSubmit = () => {};
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required!"),
@@ -71,6 +69,15 @@ const checkBoxOptions = [
 const SignUpForm = () => {
   const [formValues, setFormValues] = useState(null);
 
+  const onSubmit = (values) => {
+    // values.preventDefault();
+    console.log(values);
+    axios
+      .post("http://localhost:3001/users", values)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
+
   const formik = useFormik({
     initialValues: formValues || initialValues,
     onSubmit,
@@ -91,7 +98,7 @@ const SignUpForm = () => {
   return (
     <form
       className="flex flex-col w-[560px] m-auto mt-5"
-      onSubmit={formik.onSubmit}
+      onSubmit={formik.handleSubmit}
     >
       <InputField label="Name" formik={formik} name="name" />
       <InputField label="Email" formik={formik} name="email" />
