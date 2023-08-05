@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import RadioInput from "../common/RadioInput";
 import SelectComponent from "../common/SelectComponent";
+import CheckBoxInput from "../common/CheckBoxInput";
 
 const initialValues = {
   name: "",
@@ -14,6 +15,8 @@ const initialValues = {
   confirmPassword: "",
   gender: "",
   nationality: "",
+  interests: ["react"],
+  terms: false,
 };
 
 const onSubmit = () => {};
@@ -41,6 +44,12 @@ const validationSchema = Yup.object({
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
   gender: Yup.string().required("Gender is required!"),
   nationality: Yup.string().required("Please select a nationality!"),
+  interests: Yup.array()
+    .min(1, "Please check at least one interest!")
+    .required(),
+  terms: Yup.boolean()
+    .required("Please accept the terms!")
+    .oneOf([true], "Please accept the terms!"),
 });
 
 const radioOptions = [
@@ -52,6 +61,11 @@ const selectOptions = [
   { option: "Select a nationality", value: "" },
   { option: "Iran", value: "IR" },
   { option: "Usa", value: "US" },
+];
+
+const checkBoxOptions = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
 ];
 
 const SignUpForm = () => {
@@ -102,6 +116,28 @@ const SignUpForm = () => {
         formik={formik}
         name="nationality"
       />
+
+      <CheckBoxInput
+        checkBoxOptions={checkBoxOptions}
+        formik={formik}
+        name="interests"
+      />
+
+      <div className="flex gap-[0.3em]">
+        <label htmlFor="terms">Terms & Conditions</label>
+        <input
+          type="checkbox"
+          id="terms"
+          value={true}
+          name="terms"
+          checked={formik.values.terms}
+          onChange={formik.handleChange}
+        />
+      </div>
+
+      {formik.errors.terms && (
+        <div className="text-red-600">{formik.errors.terms}</div>
+      )}
 
       <button
         type="submit"
