@@ -53,6 +53,7 @@ const SignUpForm = () => {
     onSubmit,
     validationSchema,
     validateOnMount: true,
+    enableReinitialize: true,
   });
 
   useEffect(() => {
